@@ -202,7 +202,15 @@ public class Client {
         long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
         /* Implement the code for the run method */
         if (this.clientOperation.equals("sending")) {
-            sendTransactions();
+            for (Transactions trans : transaction) {
+                if (objNetwork.getInBufferStatus().equals("full")) {
+                    // yield
+                }
+            }
+        } else {
+            while (!objNetwork.getClientConnectionStatus().equals("connected")) {
+                this.wait();
+            }
 
         }
     }

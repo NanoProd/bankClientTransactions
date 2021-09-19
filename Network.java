@@ -517,9 +517,17 @@ public class Network {
      */
     public void run() {
         System.out.println("\n DEBUG : Network.run() - starting network thread");
+        this.connect(getClientIP());
+        this.connect(getServerIP());
 
         while (true) {
             /* Implement the code for the run method */
+            if(inBufferStatus.equals("full")){
+                for(Transactions trans: inComingPacket){
+                    transferIn(trans);
+                }
+            }
+
         }
     }
 }

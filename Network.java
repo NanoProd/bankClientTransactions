@@ -522,14 +522,10 @@ public class Network {
 
         while (true) {
             /* Implement the code for the run method */
-            if (inBufferStatus.equals("full")) {
-                transferIn(inComingPacket);
-            } else if (outBufferStatus.equals("empty")) {
-                transferOut(outGoingPacket);
-            } else {
-                Thread.yield();
+            if (getClientConnectionStatus().equals("disconnected")
+                    && getServerConnectionStatus().equals("disconnected")) {
+                setNetworkStatus("inactive");
             }
-
         }
     }
 }

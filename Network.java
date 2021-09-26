@@ -522,10 +522,12 @@ public class Network {
 
         while (true) {
             /* Implement the code for the run method */
-            if(inBufferStatus.equals("full")){
-                for(Transactions trans: inComingPacket){
-                    transferIn(trans);
-                }
+            if (inBufferStatus.equals("full")) {
+                transferIn(inComingPacket);
+            } else if (outBufferStatus.equals("empty")) {
+                transferOut(outGoingPacket);
+            } else {
+                Thread.yield();
             }
 
         }

@@ -143,10 +143,12 @@ public class Client {
         int i = 0; /* index of transaction array */
 
         while (i < getNumberOfTransactions()) {
-             while( objNetwork.getInBufferStatus().equals("full") ){
-                 Thread.yield();
-             }; /* Alternatively,
-            // busy-wait until the network input buffer is available */
+            while (objNetwork.getInBufferStatus().equals("full")) {
+                Thread.yield();
+            }
+            ; /*
+               * Alternatively, // busy-wait until the network input buffer is available
+               */
 
             transaction[i].setTransactionStatus("sent"); /* Set current transaction status */
 
@@ -169,7 +171,7 @@ public class Client {
         int i = 0; /* Index of transaction array */
 
         while (i < getNumberOfTransactions()) {
-            while(objNetwork.getInBufferStatus().equals("empty")){
+            while (objNetwork.getInBufferStatus().equals("empty")) {
                 Thread.yield();
             }
             // while( objNetwork.getOutBufferStatus().equals("empty")); /* Alternatively,
@@ -207,11 +209,13 @@ public class Client {
         long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
         /* Implement the code for the run method */
         if (this.clientOperation.equals("sending")) {
-            if(objNetwork.getInBufferStatus().equals("normal") || objNetwork.getInBufferStatus().equals("empty")){
+            if (objNetwork.getInBufferStatus().equals("normal") || objNetwork.getInBufferStatus().equals("empty")) {
                 sendTransactions();
+            } else {
+                Thread.yield();
             }
-        } else if(this.clientOperation.equals("receiving")){
-            if(objNetwork.getInBufferStatus().equals("empty")){
+        } else if (this.clientOperation.equals("receiving")) {
+            if (objNetwork.getInBufferStatus().equals("empty")) {
                 Thread.yield();
             }
             objNetwork.receive(transact);
